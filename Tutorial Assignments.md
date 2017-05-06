@@ -178,3 +178,44 @@ What to do:
     Make sure that the histogram is being updated as you would expect. Note that if you try to send too many concurrent flows through the switch, some will hash to the same `byte_cnt` register entry which will skew the results.
 
 6. If the switch appears to be working properly then congratulations! You've finished the assignment!
+
+---
+
+In-band Network Telemetry (INT)
+-------------------------------
+
+In this assignment you will write a P4 program to implement basic [INT](http://p4.org/p4/inband-network-telemetry/) support for the NetFPGA SUME platform. INT is quickly becoming one of the most popular applications for programmable data-planes, and it's all about gaining more visibility into your network. There are different ways of adding support for INT, but in this tutorial we will roughly base our implementation on the [current INT specification](http://p4.org/wp-content/uploads/fixed/INT/INT-current-spec.pdf). 
+
+The basic idea is as follows:
+
+* An INT source end host will generate a packet with an INT header (over IP) that contains an instruction bitmask.
+
+* Each bit of that instruction bitmask corresponds to a different type of metadata in the switch (e.g. switch ID, ingress port, egress port, ingress timestamp, etc.).
+
+* If a particular bit is set in the instruction bitmask that means the switch should insert the corresponding metadata into the packet. Each piece of metadata is represented as a header with a single bottom-of-stack (`bos`) bit followed by 31 bits of data. The last piece of INT metadata must have the `bos` bit set to 1. The diagram below shows how new INT metadata is inserted into the packet.
+
+```
+|  Ethernet  |   IP  |  INT  |  INT_data  |  INT_data  |  payload  |
+|            |       |       |    bos:0   |    bos:1   |           |
+                             ^ 
+                             |
+                    New data inserted here
+```
+
+* The format of the INT header is shown below. We will ignore the replication and copy fields to simplify the implementation. 
+
+```
+// INT header
+header int_h {
+    bit<2> ver;                   // version #
+    bit<2> rep;                   // replication requested
+    bit<1> c;                     // is copy 
+    bit<1> e;                     // max hop count exceeded
+    bit<5> rsvd1;                 // reserved 1 
+    bit<5> ins_cnt;               // # of 1's in instruction bitmask
+    bit<8> max_hop_cnt;           // max # hops allowed to add metadata
+    bit<8> total_hop_cnt;         // # hops that have added metadata 
+    bit<5> instruction_bitmask;   // which metadata to add to packet
+    bit<27> rsvd2;                // reserved 2
+}
+```
