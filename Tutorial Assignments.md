@@ -112,7 +112,7 @@ To complete this assignment you will need to do the following:
 
     Note: Make sure that the configuration writes all succeed. If this is the first time programming the FPGA since the machine was last powered off it may need to be rebooted.
 
-12. Test the switch on real hardware! Go to the `$ P4_PROJECT_DIR/sw/CLI` directory and run the `P4_SWITCH_CLI.py` script. This initiates an interactive command line interface that you can use to interact with your switch (i.e. read/write registers, add/remove table entries, etc.). Type `help` to see the list of available commands. 
+12. Test the design on real hardware! Go to the `$ P4_PROJECT_DIR/sw/CLI` directory and run the `P4_SWITCH_CLI.py` script. This initiates an interactive command line interface that you can use to interact with your switch (i.e. read/write registers, add/remove table entries, etc.). Type `help` to see the list of available commands. 
 
     Go to the `$P4_PROJECT_DIR/sw/hw_test_tool` directory and run `$ sudo bash` then run the `switch_calc_tester.py` script. This will initiate a command line tool that you can use to submit packets to the switch and view its response. Type `help run_test` to see how to use the command.
 
