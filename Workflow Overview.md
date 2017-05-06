@@ -6,7 +6,10 @@
 Workflow Overview
 =================
 
-* SimpleSumeSwitch architecture
-* The steps ...
+This page describes the following aspects of the P4-NetFPGA workflow:
+
+* Xilinx P4-SDNet
+* P4 target architecture for the NetFPGA SUME Platform
+* Workflow steps
 * P4-NetFPGA extern library
-* API / CLI
+* API / CLI for interacting with the switch through the control-plane
