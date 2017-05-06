@@ -12,4 +12,4 @@ This page describes the following aspects of the P4-NetFPGA workflow:
 * P4 target architecture for the NetFPGA SUME Platform
 * Workflow steps
 * P4-NetFPGA extern library
-* API / CLI for interacting with the switch through the control-plane
+* API / CLI
