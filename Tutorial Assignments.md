@@ -44,7 +44,7 @@ In summary, the switch will perform the following tasks:
 * Construct the final packet and send it back to the client
 
 The following image shows how the operands and registers should be used to perform the various functions:
-![Alt text](switch_calc_ops.pdf "Optional title")
+![switch_calc_ops](switch_calc_ops.pdf)
 
 What to do:
 -----------
