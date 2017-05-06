@@ -3,16 +3,16 @@ Tutorial Assignments
 
 There are currently three tutorial assignments created to allow new users to become familiar with the workflow:
 
-1. **Switch_Calc** - using the switch as a calculator and key-value store
+1. **Switch Calculator** - using the switch as a calculator and key-value store
 
-2. **TCP_Monitor** - using the switch to monitor the number of bytes transferred in each TCP connection
+2. **TCP Monitor** - using the switch to monitor the number of bytes transferred in each TCP connection
 
 3. **In-band Network Telemetry (INT)** - implement basic support for INT to facilitate network measurements
 
 ---
 
-Switch_Calc
------------
+Assignment 1: Switch Calculator
+-------------------------------
 
 This is a simple tutorial which demonstrates many of the basic features of the P4-NetFPGA workflow. In this assignment, you will write a P4 program that configures the NetFPGA SUME switch to act as a simple calculator and key-value store. 
 
@@ -126,3 +126,28 @@ Hints:
 * Debugging tools:
     * While running the SDNet simulations, if you find that you have an error in the tuple (metadata) you can use the `$ $SUME_SDNET/bin/sss_sdnet_tuples.py --parse <binary_tuple_data>` command to see the sume_metadata values.
     * Use python scapy's `rdpcap()`, `Packet.show()`, and `hexdump()` commands to debug an error in the packet. Or alternatively, just go ahead and run the SUME simulation which will generate a file of logged and expected packets in `$NF_DESIGN_DIR/test`. Then use the `$ $SUME_SDNET/bin/nf_sim_compare_axi_logs.py --log <logged_file> --expect <expected_file>` to determine where the error is.
+
+---
+
+Assignment 2: TCP Monitor
+-------------------------
+
+This tutorial is designed to give users experience writing stateful P4 programs by utilizing some of the register atoms available in the P4-NetFPGA extern library.
+
+In this assignment, you will write a P4 program to configure the NetFPGA SUME to perform some basic TCP connection monitoring. Recall that a TCP connection is established with the 3-way handshake (SYN, SYN-ACK, ACK) and in general, completes after a FIN packet is sent in both directions. For the purposes of this assignment, we will define a *flow* as all of the packets with a particular 5-tuple ID (srcIP, dstIP, protocol, source_port, destination_port); a flow starts with a packet that has the SYN bit set and ends with a packet that has the FIN bit set. Note that using this definition, each TCP connection consists of two flows, one in each direction.
+
+The TCP Monitor P4 program will compute the size of each flow (in bytes) and after the flow has completed, it will update a histogram indicating the distribution of flow sizes that have passed through the switch. The control-plane can read this histogram off of the switch and display the current distribution in real time. 
+
+The general idea is as follows:
+
+* There are two register arrays:
+    * `byte_cnt` - store the current size in bytes of all "active" flows. Where an "active" flow is one in which the SYN packet has been seen, but the FIN packet has not been seen yet.
+    * `dist` - store the histogram of flow sizes that have been seen to pass through the switch.
+
+* The 5-tuple is extracted from each arriving packet and hashed using a simple [longitudinal redundancy check](https://en.wikipedia.org/wiki/Longitudinal_redundancy_check) (LRC) to compute the index with which to access the `byte_cnt` register. 
+
+* The initial SYN packet will reset the `byte_cnt` register entry to 0
+
+* Each subsequent packet of the flow will increment its corresponding entry in the `byte_cnt` register with the size of its TCP payload.
+
+* The FIN packet will extract the final size of the flow from the `byte_cnt` register and use it to increment one of the entries of the `dist` register.
