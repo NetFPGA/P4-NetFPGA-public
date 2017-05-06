@@ -219,3 +219,24 @@ header int_h {
     bit<27> rsvd2;                // reserved 2
 }
 ```
+
+* Our INT implementation will support gathering 4 types of metadata from the switch:
+    * SwitchID
+    * Ingress Port
+    * Egress Port
+    * Ingress Timestamp
+
+* Upon receiving the final packet, the INT sink end host will extract the resulting metadata.
+
+What to do:
+-----------
+
+1. Modify `$SUME_FOLDER/tools/settings.sh` to ensure that the `P4_PROJECT_NAME` environment variable is set to `int`. Run `$ source settings.sh`
+
+2. **Complete int.p4** - a skeleton P4 program has been provided for you in `$P4_PROJECT_DIR/src/int.p4`.  
+
+3. **Complete gen_testdata.py** - 
+
+4. Follow steps 4 - 11 as listed in the "Switch Calculator" tutorial above.
+
+5. Hardware testing!
