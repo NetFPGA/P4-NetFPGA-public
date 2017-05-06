@@ -1,4 +1,4 @@
-[Home](https://bitbucket.org/sibanez/netfpga-sume-sdnet/wiki/edit/Home)
+[Home](https://bitbucket.org/sibanez/netfpga-sume-sdnet/wiki/Home)
 ======
 
 ---
