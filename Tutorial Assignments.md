@@ -52,11 +52,15 @@ What to do:
 
 To complete this assignment you will need to do the following:
 
-1. Modify `$SUME_FOLDER/tools/settings.sh` to ensure that the `P4_PROJECT_NAME` environment variable is set to `tcp_monitor`. Run `$ source settings.sh`
+1. Modify `$SUME_FOLDER/tools/settings.sh` to ensure that the `P4_PROJECT_NAME` environment variable is set to `switch_calc`. Run `$ source settings.sh`
+
 2. **Complete switch_calc.p4** - a skeleton P4 program has been provided for you in `$P4_PROJECT_DIR/src/switch_calc.p4`. `TopParser` and `TopDeparser` are already complete. `TopPipe` (i.e. the match-action pipeline) has all of the necessary tables and actions defined. Your job is to fill in the control flow to implement the switch_calc program. Note that the commands.txt file in the same directory fills the entries in the `lookup_table`.
+
 3. **Complete gen_testdata.py** - this is the python script that generates the test data (i.e. applied/expected packets and metadata) to be used in the simulations that verify functionality. Most of the gen_testdata.py script has been completed, your job is to complete the `test_add()` and `test_sub()` functions.
-4. **Run the P4-SDNet compiler** to generate the resulting HDL and an initial simulation framework: `$ cd $P4_PROJECT_DIR && make`
-5. **Run the SDNet simulation**: 
+
+4. Run the P4-SDNet compiler to generate the resulting HDL and an initial simulation framework: `$ cd $P4_PROJECT_DIR && make`
+
+5. Run the SDNet simulation: 
 
     `$ cd $P4_PROJECT_DIR/nf_sume_sdnet_ip/SimpleSumeSwitch`
 
@@ -64,7 +68,7 @@ To complete this assignment you will need to do the following:
 
     Note: you may also run `vivado_sim_waveform.bash` if you would like to fire up the Vivado GUI and see the HDL waveforms (this is a very useful debugging tool).
 
-    If this simulation passes great! If it does not you will need to modify either `switch_calc.p4` or your `gen_testdata.py` script.
+    If this simulation passes great! If it does not you will need to modify either your P4 program or your `gen_testdata.py` script.
 
 6. Generate the scripts that can be used in the NetFPGA SUME simulations to configure the table entries.
 
@@ -110,7 +114,7 @@ To complete this assignment you will need to do the following:
 
 12. Test the switch on real hardware! Go to the `$ P4_PROJECT_DIR/sw/CLI` directory and run the `P4_SWITCH_CLI.py` script. This initiates an interactive command line interface that you can use to interact with your switch (i.e. read/write registers, add/remove table entries, etc.). Type `help` to see the list of available commands. 
 
-    Go to the `$P4_PROJECT_DIR/sw/hw_test_tool` directory and run the `switch_calc_tester.py` script. This will initiate a command line tool that you can use to submit packets to the switch and view its response. Type `help run_test` to see how to use the command.
+    Go to the `$P4_PROJECT_DIR/sw/hw_test_tool` directory and run `$ sudo bash` then run the `switch_calc_tester.py` script. This will initiate a command line tool that you can use to submit packets to the switch and view its response. Type `help run_test` to see how to use the command.
 
     Try adding two numbers `testing> run_test 2 + 3` and seeing what you get. Also try doing things like setting one of the `const` register entries from the command line then submitting an `ADD_REG` packet. Or submit a `SET_REG` packet and read the value from the command line. Or add a new entry into the `lookup_table` and submit a `LOOKUP` packet to get the result.
 
@@ -151,3 +155,26 @@ The general idea is as follows:
 * Each subsequent packet of the flow will increment its corresponding entry in the `byte_cnt` register with the size of its TCP payload.
 
 * The FIN packet will extract the final size of the flow from the `byte_cnt` register and use it to increment one of the entries of the `dist` register.
+
+* Note: It is true that the 5-tuple of different flows may hash to the same entry of the `byte_cnt` register, which will skew the resulting histogram towards larger flows. We will ignore that case for the purposes of this assignment to keep things simple.
+
+What to do:
+-----------
+
+1. Modify `$SUME_FOLDER/tools/settings.sh` to ensure that the `P4_PROJECT_NAME` environment variable is set to `tcp_monitor`. Run `$ source settings.sh`
+
+2. **Complete tcp_monitor.p4** - a skeleton P4 program has been provided for you in `$P4_PROJECT_DIR/src/tcp_monitor.p4`. `TopParser` and `TopDeparser` are already complete. `TopPipe` (i.e. the match-action pipeline) has all of the necessary tables and actions defined. Your job is to fill in the control flow to implement the tcp_monitor program. 
+
+3. **Review gen_testdata.py** - this time we have completed the `gen_testdata.py` script for you, but ask that you review how it uses python's scapy module to generate the flows.
+
+4. Follow steps 4 - 11 as listed in the "Switch Calculator" tutorial above.
+
+5. Hardware testing! `$ cd $P4_PROJECT_DIR/sw/hw_test_tool` and open up two terminal windows:
+
+    * In one terminal, run the `view_dist.py` script which will periodically read the flow size distribution from the switch and display it as a histogram.
+
+    * In the other terminal, run `$ sudo bash` then run the `tcp_monitor_tester.py` script, which initiates a command line interface that allows you to send TCP flows through the switch
+
+    Make sure that the histogram is being updated as you would expect. Note that if you try to send too many concurrent flows through the switch, some will hash to the same `byte_cnt` register entry which will skew the results.
+
+6. If the switch appears to be working properly then congratulations! You've finished the assignment!
