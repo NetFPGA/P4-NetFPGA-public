@@ -115,18 +115,16 @@ Tips:
 ##### Vivado #####
 source /opt/Xilinx/Vivado/2016.4/settings64.sh
 
-# point to the Xilinx license file so we can use Vivado
-export XILINXD_LICENSE_FILE= ...
-export LM_LICENSE_FILE= ...
-
 #### P4-NetFPGA #####
 source ~/projects/NetFPGA-SUME-SDNet/tools/settings.sh
 
 #### SDNet ####
 export PATH=/opt/Xilinx/SDNet/2017.1/bin:$PATH
 source /opt/Xilinx/SDNet/2017.1/settings64.sh
-export XILINXD_LICENSE_FILE= ... # add SDNet license file
-export LM_LICENSE_FILE= ... # add SDNet license file
+
+# point to Vivado license file and SDNet license file
+export XILINXD_LICENSE_FILE= ... 
+export LM_LICENSE_FILE= ... 
 ```
 
-*
+* Review the reference projects in `$SUME_SDNET/projects/` and go through the [tutorial assignments](https://bitbucket.org/sibanez/netfpga-sume-sdnet/wiki/Tutorial%20Assignments).
