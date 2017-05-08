@@ -13,7 +13,7 @@ Steps for initial setup:
 
 1. Go to the [NetFPGA SUME System Setup](https://github.com/NetFPGA/NetFPGA-SUME-public/wiki/Reference-Operating-System-Setup-Guide) wiki page and follow the instructions. Make sure to install all of the required dependencies. 
 
-    * **Important**: This project uses **Vivado 2016.4**. You will likely run into issues if you do not use this version of Vivado. Also, make sure to check the box indicating that you would like to install the SDK.
+    * **Important**: This project uses **Vivado 2016.4**. You will likely run into issues if you do not use this version of Vivado. Also, make sure to check the box indicating that you would like to install the SDK when installing Vivado.
 
 2. Install the Xilinx P4-SDNet tools.
 
