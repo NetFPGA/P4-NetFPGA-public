@@ -104,7 +104,7 @@ ${P4_PROJECT_DIR}
 Tips:
 -----
 
-* Run the following command when you would like to create a new P4 project. It will create a template project in `$SUME_SDNET/projects/` to get you up and running quickly.
+* **Creating new P4 Project** - run the following command when you would like to create a new P4 project. It will create a template project in `$SUME_SDNET/projects/` to get you up and running quickly.
 
     `$ $SUME_SDNET/bin/make_new_p4_proj.py <P4_PROJECT_NAME>`
 
