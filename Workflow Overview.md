@@ -11,6 +11,8 @@ This page describes the following aspects of the P4-NetFPGA workflow:
 * Xilinx P4-SDNet
 * P4 Target Architecture for the NetFPGA SUME Platform
 * Workflow Steps
+* Tips: Writing P4 Programs
+* Tips: Writing gen_testdata.py
 * P4-NetFPGA Extern Library
 * API / CLI
 
@@ -119,6 +121,16 @@ Workflow Steps
     Note: Make sure that the configuration writes all succeed. If this is the first time programming the FPGA since the machine was last powered off it may need to be rebooted.
 
 12. Test the design on real hardware! Go to the `$ P4_PROJECT_DIR/sw/CLI` directory and run the `P4_SWITCH_CLI.py` script. This initiates an interactive command line interface that you can use to interact with your switch (i.e. read/write registers, add/remove table entries, etc.). Type `help` to see the list of available commands. 
+
+---
+
+Tips: Writing P4 Programs
+-------------------------
+
+---
+
+Tips: Writing gen_testdata.py
+-----------------------------
 
 ---
 
