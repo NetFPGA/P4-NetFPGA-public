@@ -195,18 +195,18 @@ In this assignment you will write a P4 program to implement basic [INT](http://p
 
 The basic idea is as follows:
 
-* An INT source end host will generate a packet with an INT header (over IP) that contains an instruction bitmask.
+* An INT source end host will generate a packet with an INT header (over Ethernet) that contains an instruction bitmask.
 
 * Each bit of that instruction bitmask corresponds to a different type of metadata in the switch (e.g. switch ID, ingress port, egress port, ingress timestamp, etc.).
 
 * If a particular bit is set in the instruction bitmask that means the switch should insert the corresponding metadata into the packet. Each piece of metadata is represented as a header with a single bottom-of-stack (`bos`) bit followed by 31 bits of data. The last piece of INT metadata must have the `bos` bit set to 1. The diagram below shows how new INT metadata is inserted into the packet.
 
 ```
-|  Ethernet  |   IP  |  INT  |  INT_data  |  INT_data  |  payload  |
-|            |       |       |    bos:0   |    bos:1   |           |
-                             ^ 
-                             |
-                    New data inserted here
+|  Ethernet  |  INT  |  INT_data  |  INT_data  |  payload  |
+|            |       |    bos:0   |    bos:1   |           |
+                     ^ 
+                     |
+            New data inserted here
 ```
 
 * The format of the INT header is shown below. We will ignore the replication and copy fields to simplify the implementation. 
