@@ -35,6 +35,8 @@ Steps for initial setup:
 
     `$ cd $SUME_SDNET/sw/sume && make`
 
+    `$ cd $APPS_FOLDER && make`
+
 6. Build and load the SUME drivers:
 
 ```
