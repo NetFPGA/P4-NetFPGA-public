@@ -15,6 +15,12 @@ Steps for initial setup:
 
     * **Important**: This project uses **Vivado 2016.4**. You will likely run into issues if you do not use this version of Vivado. Also, make sure to check the box indicating that you would like to install the SDK when installing Vivado.
 
+    * Additional Dependencies (used in a couple of tests):
+        * `sudo apt-get install python-numpy`
+        * `sudo apt-get install python-matplotlib`
+        * `sudo apt-get install python-pip`
+        * `sudo pip install ascii_graph`
+
 2. Install the Xilinx P4-SDNet tools.
 
 3. Clone this repository:
