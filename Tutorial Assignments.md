@@ -122,7 +122,7 @@ To complete this assignment you will need to do the following:
 
     `$ cd $NF_DESIGN_DIR && make`
 
-11. Program the FPGA. Copy the bitstream file and `config_writes.sh` script into the `$NF_DESIGN_DIR/bitfiles` directory.
+11. Copy the bitstream file and `config_writes.sh` script into the `$NF_DESIGN_DIR/bitfiles` directory.
 
     `$ cd $NF_DESIGN_DIR/bitfiles`
 
@@ -130,19 +130,33 @@ To complete this assignment you will need to do the following:
 
     `$ cp $P4_PROJECT_DIR/testdata/config_writes.sh ./`
 
+12. Move to hardware test machine and program FPGA.
+
+    On compute instance:
+
+    `$ scp $NF_DESIGN_DIR/bitfiles/${P4_PROJECT_NAME}.bit p4user@<machine_name>.stanford.edu:$NF_DESIGN_DIR/bitfiles/`
+
+    `$ scp $NF_DESIGN_DIR/bitfiles/config_writes.sh p4user@<machine_name>.stanford.edu:$NF_DESIGN_DIR/bitfiles/`
+
+    `$ scp $P4_PROJECT_DIR/src/${P4_PROJECT_NAME}.p4 p4user@<machine_name>.stanford.edu:$P4_PROJECT_DIR/src/`
+
+    On hardware testing machine:
+
+    `$ cd $NF_DESIGN_DIR/bitfiles`
+
     `$ sudo bash`
 
     `# bash program_switch.sh`
 
     Note: Make sure that the configuration writes all succeed. If this is the first time programming the FPGA since the machine was last powered off it may need to be rebooted.
 
-12. Test the design on real hardware! Go to the `$ P4_PROJECT_DIR/sw/CLI` directory and run the `P4_SWITCH_CLI.py` script. This initiates an interactive command line interface that you can use to interact with your switch (i.e. read/write registers, add/remove table entries, etc.). Type `help` to see the list of available commands. 
+13. Test the design on real hardware! Go to the `$P4_PROJECT_DIR/sw/CLI` directory and run the `P4_SWITCH_CLI.py` script. This initiates an interactive command line interface that you can use to interact with your switch (i.e. read/write registers, add/remove table entries, etc.). Type `help` to see the list of available commands. 
 
     Go to the `$P4_PROJECT_DIR/sw/hw_test_tool` directory and run `$ sudo bash` then run the `switch_calc_tester.py` script. This will initiate a command line tool that you can use to submit packets to the switch and view its response. Type `help run_test` to see how to use the command.
 
     Try adding two numbers `testing> run_test 2 + 3` and seeing what you get. Also try doing things like setting one of the `const` register entries from the command line then submitting an `ADD_REG` packet. Or submit a `SET_REG` packet and read the value from the command line. Or add a new entry into the `lookup_table` and submit a `LOOKUP` packet to get the result.
 
-13. If the switch appears to be working congratulations! You've finished the assignment!
+14. If the switch appears to be working congratulations! You've finished the assignment!
 
 Hints:
 ------
@@ -191,7 +205,7 @@ What to do:
 
 3. **Review gen_testdata.py** - this time we have completed the `gen_testdata.py` script for you, but ask that you review how it uses python's scapy module to generate the flows.
 
-4. Follow steps 4 - 11 as listed in the "Switch Calculator" tutorial above.
+4. Follow steps 4 - 12 as listed in the "Switch Calculator" tutorial above.
 
 5. Hardware testing! `$ cd $P4_PROJECT_DIR/sw/hw_test_tool` and open up two terminal windows:
 
@@ -257,10 +271,16 @@ What to do:
 
 1. Modify `$SUME_FOLDER/tools/settings.sh` to ensure that the `P4_PROJECT_NAME` environment variable is set to `int`. Run `$ source settings.sh`
 
-2. **Complete int.p4** - a skeleton P4 program has been provided for you in `$P4_PROJECT_DIR/src/int.p4`.  
+2. **Complete int.p4** - a skeleton P4 program has been provided for you in `$P4_PROJECT_DIR/src/int.p4`. 
 
-3. **Complete gen_testdata.py** - 
+3. **Review gen_testdata.py**
 
-4. Follow steps 4 - 11 as listed in the "Switch Calculator" tutorial above.
+4. Follow steps 4 - 12 as listed in the "Switch Calculator" tutorial above.
 
-5. Hardware testing!
+5. Hardware testing! `$ cd $P4_PROJECT_DIR/sw/hw_test_tool` and open up two terminal windows:
+
+    * In one terminal run `$ sudo bash` then run `# ./rcv_int`, which receives, parses, and prints received INT packets.
+
+    * In the other terminal run `$ sudo bash` then run `# ./int_tester.py`, which allows you to send INT packets with a particular instruction bitmask into the switch. For example, `testing> run_test 0b11001` will submit an INT that requests to switch to insert the switchID, ingress port, and egress port into the packet. Type `testing> help run_test` to see documentation about the command.
+
+If the switch appears to be working congratulations! You've completed the assignment.
