@@ -163,7 +163,23 @@ The `${NF_DESIGN_DIR}/test/sim_learning_default/run.py` script runs a SUME simul
 P4-NetFPGA Extern Library
 -------------------------
 
-Extern functions are designed to allow P4 programers to utilize custom logic in their P4 program.  
+Extern functions are designed to allow P4 programers to utilize custom logic in their P4 programs. For the NetFPGA platform, these extern functions must be implemented in HDL (or perhaps some high-level language that generates HDL). In an effort to abstract away the HDL details from the P4 developer, the P4-NetFPGA workflow provides a library of extern functions that can be used in P4 programs. The following tables describes the currently supported extern functions:
+
+**Stateful Atomic Extern Functions**
+
+Name      | Description   
+:---------| :------------
+RW        | Read or write state
+RAW       | Read, add to, or overwrite state
+PRAW      | Either perform RAW or don't perform RAW based on predicate
+
+
+**Stateless Extern Functions**
+
+Name        | Description   
+:-----------| :------------
+LRC         | longitudinal redundancy check, simple hash function 
+timestamp   | generate timestamp (measure in clock cycles, granularity of 5ns)
 
 ---
 
