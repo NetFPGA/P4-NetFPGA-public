@@ -183,8 +183,8 @@ The TCP Monitor P4 program will compute the size of each flow (in bytes) and aft
 The general idea is as follows:
 
 * There are two register arrays:
-    * `byte_cnt` - store the current size in bytes of all "active" flows. Where an "active" flow is one in which the SYN packet has been seen, but the FIN packet has not been seen yet.
-    * `dist` - store the histogram of flow sizes that have been seen to pass through the switch.
+    * `byte_cnt` - stores the current size in bytes of all "active" flows. Where an "active" flow is one in which the SYN packet has been seen, but the FIN packet has not been seen yet.
+    * `dist` - stores the histogram of flow sizes that have been seen to pass through the switch.
 
 * The 5-tuple is extracted from each arriving packet and hashed using a simple [longitudinal redundancy check](https://en.wikipedia.org/wiki/Longitudinal_redundancy_check) (LRC) to compute the index with which to access the `byte_cnt` register. 
 
