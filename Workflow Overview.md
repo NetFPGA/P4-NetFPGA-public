@@ -167,19 +167,24 @@ Extern functions are designed to allow P4 programers to utilize custom logic in 
 
 **Stateful Atomic Extern Functions**
 
-Name      | Description   
-:---------| :------------
-RW        | Read or write state
-RAW       | Read, add to, or overwrite state
-PRAW      | Either perform RAW or don't perform RAW based on predicate
-
+Name        | Description   
+:-----------| :------------
+[RW][]      | Read or write state
+[RAW][]     | Read, add to, or overwrite state
+[PRAW][]    | Either perform RAW or don't perform RAW based on predicate
 
 **Stateless Extern Functions**
 
-Name        | Description   
-:-----------| :------------
-LRC         | longitudinal redundancy check, simple hash function 
-timestamp   | generate timestamp (measure in clock cycles, granularity of 5ns)
+Name           | Description   
+:--------------| :------------
+[LRC][]        | longitudinal redundancy check, simple hash function 
+[timestamp][]   | generate timestamp (measure in clock cycles, granularity of 5ns)
+
+[RW]: https://bitbucket.org/sibanez/netfpga-sume-sdnet/wiki/RW%20Extern%20Function
+[RAW]: https://bitbucket.org/sibanez/netfpga-sume-sdnet/wiki/RAW%20Extern%20Function
+[PRAW]: https://bitbucket.org/sibanez/netfpga-sume-sdnet/wiki/PRAW%20Extern%20Function
+[LRC]: https://bitbucket.org/sibanez/netfpga-sume-sdnet/wiki/LRC%20Extern%20Function
+[timestamp]: https://bitbucket.org/sibanez/netfpga-sume-sdnet/wiki/Timestamp%20Extern%20Function
 
 ---
 
