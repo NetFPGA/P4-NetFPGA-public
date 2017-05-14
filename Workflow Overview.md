@@ -8,20 +8,14 @@ Workflow Overview
 
 This page describes the following aspects of the P4-NetFPGA workflow:
 
-* Xilinx P4-SDNet
 * P4 Target Architecture for the NetFPGA SUME Platform
+* Xilinx P4-SDNet
 * Workflow Steps
 * Tips: Writing P4 Programs
 * Tips: Writing gen_testdata.py
 * P4-NetFPGA Extern Library
 * API / CLI
 * Limitations
-
----
-
-Xilinx P4-SDNet
----------------
-
 
 ---
 
@@ -49,6 +43,17 @@ The sume_metadata, which corresponds to the tuser bus in the SUME reference_swit
         bit<48> eth_src_addr;
         bit<24> unused;
     }
+
+The Xilinx P4-SDNet toolchain creates an HDL module, which is then wrapped in a small wrapper and inserted into the NetFPGA SUME reference switch architecture, as indicated by the image below.
+
+![architecture.png](https://bitbucket.org/repo/jp6axo/images/674586831-architecture.png)
+
+---
+
+Xilinx P4-SDNet
+---------------
+
+The Xilinx P4-SDNet compiler is the centerpiece of the P4-NetFPGA workflow. It compiles P4 programs that target the SimpleSumeSwitch architecture into HDL. 
 
 ---
 
@@ -203,3 +208,12 @@ The tools generate an interactive command line environment that can be used to q
 
 Limitations
 -----------
+
+* Registers that are accessed from the control plane must be limited to 32-bits wide. As this is the width of the SUME control data bus.
+
+* While the Xilinx P4-SDNet toolchain supports 3 table match types: exact, ternary, lpm. The ternary and lpm match types have not been integrated into the P4-NetFPGA workflow yet.
+
+---
+
+FAQ
+---
