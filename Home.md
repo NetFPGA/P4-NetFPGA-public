@@ -1,7 +1,0 @@
-# P4-NetFPGA
-
-This project provides an environment to develop and test P4 programs using the Xilinx P4-SDNet toolchain within the NetFPGA SUME reference switch design.
-
-* [Getting Started](https://bitbucket.org/sibanez/netfpga-sume-sdnet/wiki/Getting%20Started)
-* [Workflow Overview](https://bitbucket.org/sibanez/netfpga-sume-sdnet/wiki/Workflow%20Overview)
-* [Tutorial Assignments](https://bitbucket.org/sibanez/netfpga-sume-sdnet/wiki/Tutorial%20Assignments)
