@@ -1,8 +1,7 @@
 
 <img src="images/P4-NetFPGA_logo.png" alt="P4-NetFPGA-logo" style="width: 10px">
 
-P4-NetFPGA-public
------------------
+---
 
 Welcome to the wiki for the P4->NetFPGA project. For more information and documentation about the project please see the home page for the wiki: 
 
