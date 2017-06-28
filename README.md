@@ -1,6 +1,8 @@
 
 ![P4-NetFPGA-logo](images/P4-NetFPGA_logo.png)
 
+<img src="images/P4-NetFPGA_logo.png" alt="P4-NetFPGA-logo" style="width:200px">
+
 P4-NetFPGA-public
 -----------------
 
